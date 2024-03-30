@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:guardiancare/screens/account.dart';
-import 'package:guardiancare/screens/emergencyContactPage.dart';
-import 'package:guardiancare/screens/learn.dart';
-import 'package:guardiancare/screens/quizPage.dart';
-import 'package:guardiancare/screens/searchPage.dart';
+import 'package:guardiancare/screens/account/account.dart';
+import 'package:guardiancare/screens/emergency/emergencyContactPage.dart';
+import 'package:guardiancare/screens/learn/learn.dart';
+import 'package:guardiancare/screens/quizpage/quizPage.dart';
+import 'package:guardiancare/screens/search%20page/searchPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
 
   String _extractVideoTitle(String html) {
     final regExp =
-        RegExp(r'<title>(?:\S+\s*\|)?\s*(?<title>[\S\s]+?) - YouTube</title>');
+    RegExp(r'<title>(?:\S+\s*\|)?\s*(?<title>[\S\s]+?) - YouTube</title>');
     final match = regExp.firstMatch(html);
     return match?.namedGroup('title') ?? '';
   }
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   height: MediaQuery.of(context).size.height / 2,
                   aspectRatio: 5 / 4,
                   viewportFraction:
-                      0.8, // Adjust the viewportFraction for spacing
+                  0.8, // Adjust the viewportFraction for spacing
                   initialPage: 0,
                   enableInfiniteScroll: true,
                   autoPlay: true,
@@ -90,64 +90,64 @@ class _HomePageState extends State<HomePage> {
                 items: videoData.isEmpty
                     ? _buildShimmerItems() // Use shimmer items if video data is empty
                     : videoData.map((video) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        WebViewPage(url: video['url']),
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  WebViewPage(url: video['url']),
+                            ),
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Stack(
+                            children: [
+                              Image.network(
+                                video['thumbnailUrl'],
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black.withOpacity(0.5),
+                                      ],
+                                    ),
                                   ),
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16.0),
-                                child: Stack(
-                                  children: [
-                                    Image.network(
-                                      video['thumbnailUrl'],
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      left: 0,
-                                      right: 0,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.transparent,
-                                              Colors.black.withOpacity(0.5),
-                                            ],
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            video['title'],
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      video['title'],
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
                                       ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                        );
-                      }).toList(),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
             ),
             const SizedBox(height: 20),
@@ -287,7 +287,6 @@ class _HomePageState extends State<HomePage> {
 
 class WebViewPage extends StatelessWidget {
   final String url;
-
   const WebViewPage({Key? key, required this.url}) : super(key: key);
 
   @override
@@ -297,6 +296,25 @@ class WebViewPage extends StatelessWidget {
       body: WebView(
         initialUrl: url,
         javascriptMode: JavascriptMode.unrestricted,
+        onPageStarted: (String url) {
+          // Handle page start event
+        },
+        onPageFinished: (String url) {
+          // Handle page finish event
+        },
+        navigationDelegate: (NavigationRequest request) {
+          if (request.url.startsWith('https://www.youtube.com/')) {
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },
+        onWebResourceError: (WebResourceError error) {
+          // Handle web resource error
+        },
+        gestureNavigationEnabled: true, // Enable gesture navigation
+        allowsInlineMediaPlayback: true, // Allow inline media playback
+        debuggingEnabled: true, // Enable debugging
+        userAgent: 'Custom User Agent', // Set custom user agent
       ),
     );
   }

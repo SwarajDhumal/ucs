@@ -7,6 +7,8 @@ import 'package:guardiancare/screens/learn/learn.dart';
 import 'package:guardiancare/screens/quizpage/quizPage.dart';
 import 'package:guardiancare/screens/search%20page/searchPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:guardiancare/screens/utils/CircularButton.dart';
+import 'package:guardiancare/screens/utils/shimmer_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,7 +18,6 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> videoData = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;

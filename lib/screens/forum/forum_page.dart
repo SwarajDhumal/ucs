@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'forum_post.dart';
-import 'LawDescripitonPage.dart';
+import 'law_descripiton_page.dart';
 
 class ForumPage extends StatelessWidget {
+  const ForumPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Child Safety Laws Forum'),
+        title: const Text('Child Safety Laws Forum'),
       ),
       body: ListView.builder(
         itemCount: _childSafetyLaws.length,
@@ -40,7 +42,7 @@ class ForumPage extends StatelessWidget {
         onPressed: () {
           // Add functionality to create new forum posts
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,23 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:guardiancare/screens/emergency/emergencyContactPage.dart';
-import 'package:guardiancare/screens/loginpage/loginPage.dart';
-import 'package:guardiancare/screens/Report/reportPage.dart';
+import 'package:guardiancare/screens/emergency/emergency_contact_page.dart';
+import 'package:guardiancare/screens/loginpage/login_page.dart';
+import 'package:guardiancare/screens/Report/report_page.dart';
 
 class Account extends StatelessWidget {
   final User? user;
 
-  const Account({Key? key, this.user}) : super(key: key);
+  const Account({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account'),
+        title: const Text('Account'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,25 +31,25 @@ class Account extends StatelessWidget {
                     ? Text(user!.displayName![0].toUpperCase())
                     : null, // Display user's initials if displayName is available
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Profile Information',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ListTile(
-                leading: Icon(Icons.person),
+                leading: const Icon(Icons.person),
                 title: Text('Name: ${user?.displayName ?? 'Not available'}'),
               ),
               ListTile(
-                leading: Icon(Icons.email),
+                leading: const Icon(Icons.email),
                 title: Text('Email: ${user?.email ?? 'Not available'}'),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Child Safety Settings',
                 style: TextStyle(
                   fontSize: 20,
@@ -64,29 +64,29 @@ class Account extends StatelessWidget {
               //   },
               // ),
               ListTile(
-                title: Text('Emergency Contact'),
+                title: const Text('Emergency Contact'),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmergencyContactPage(),
+                      builder: (context) => const EmergencyContactPage(),
                     ),
                   );
                 },
               ),
               ListTile(
-                title: Text('Report an Incident'),
+                title: const Text('Report an Incident'),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReportPage(),
+                      builder: (context) => const ReportPage(),
                     ),
                   );
                 },
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Settings',
                 style: TextStyle(
                   fontSize: 20,
@@ -100,7 +100,7 @@ class Account extends StatelessWidget {
               //   },
               // ),
               ListTile(
-                title: Text('Log Out'),
+                title: const Text('Log Out'),
                 onTap: () async {
                   try {
                     await FirebaseAuth.instance.signOut();
@@ -109,12 +109,12 @@ class Account extends StatelessWidget {
                       // Sign out successful, redirect to LoginPage
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     } else {
                       // Sign out failed, display an error message
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Error signing out. Please try again.'),
                         ),
                       );

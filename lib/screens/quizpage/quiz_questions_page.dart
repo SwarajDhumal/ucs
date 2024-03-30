@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class QuizQuestionsPage extends StatefulWidget {
   final List<Map<String, dynamic>> questions;
 
-  QuizQuestionsPage({required this.questions});
+  const QuizQuestionsPage({super.key, required this.questions});
 
   @override
   _QuizQuestionsPageState createState() => _QuizQuestionsPageState();
@@ -17,7 +17,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz Questions'),
+        title: const Text('Quiz Questions'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,19 +26,19 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
           children: [
             Text(
               'Question ${currentQuestionIndex + 1}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               widget.questions[currentQuestionIndex]['question'],
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ...List.generate(
               widget.questions[currentQuestionIndex]['options'].length,
                   (index) => ElevatedButton(
@@ -47,19 +47,19 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
                   if (index ==
                       widget.questions[currentQuestionIndex]
                       ['correctAnswerIndex']) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Correct!'),
                     ));
                     setState(() {
                       correctAnswers++;
                     });
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Incorrect!'),
                     ));
                   }
                   // Move to the next question after a short delay
-                  Future.delayed(Duration(seconds: 2), () {
+                  Future.delayed(const Duration(seconds: 2), () {
                     setState(() {
                       if (currentQuestionIndex <
                           widget.questions.length - 1) {
@@ -70,7 +70,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Quiz Completed'),
+                              title: const Text('Quiz Completed'),
                               content: Text(
                                   'You have completed the quiz!\n\nYour score: $correctAnswers/${widget.questions.length}'),
                               actions: [
@@ -78,7 +78,7 @@ class _QuizQuestionsPageState extends State<QuizQuestionsPage> {
                                   onPressed: () {
                                     Navigator.popUntil(context, ModalRoute.withName('/'));
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );

@@ -4,13 +4,13 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WebViewPage extends StatelessWidget {
   final String url;
 
-  const WebViewPage({Key? key, required this.url}) : super(key: key);
+  const WebViewPage({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('YouTube Video')),
-      body: WebView(
+      body: const WebView(
         // WebView configuration
       ),
     );

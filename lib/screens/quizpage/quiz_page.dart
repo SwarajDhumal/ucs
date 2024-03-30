@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:guardiancare/screens/quizpage/quizQuestionsPage.dart';
+import 'package:guardiancare/screens/quizpage/quiz_questions_page.dart';
 
 class QuizPage extends StatelessWidget {
+  const QuizPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Create a list of quizzes
@@ -319,7 +321,7 @@ class QuizPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz Page'),
+        title: const Text('Quiz Page'),
       ),
       body: ListView.builder(
         itemCount: quizzes.length,
@@ -350,7 +352,7 @@ class QuizPage extends StatelessWidget {
 class QuizTile extends StatelessWidget {
   final Quiz quiz;
 
-  const QuizTile({required this.quiz});
+  const QuizTile({super.key, required this.quiz});
 
   @override
   Widget build(BuildContext context) {
@@ -373,15 +375,15 @@ class QuizTile extends StatelessWidget {
               children: [
                 Text(
                   quiz.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   quiz.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),

@@ -5,7 +5,7 @@ class LawDescriptionPage extends StatelessWidget {
   final String lawName;
   final String lawDescription;
 
-  const LawDescriptionPage({
+  const LawDescriptionPage({super.key,
     required this.lawName,
     required this.lawDescription,
   });
@@ -21,33 +21,33 @@ class LawDescriptionPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Text(
                 'About $lawName',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 lawDescription,
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'For Children:',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 LawDescriptions.generateChildFriendlyExplanation(lawName),
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),

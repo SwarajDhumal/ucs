@@ -8,7 +8,7 @@ class ForumPost extends StatelessWidget {
   final int likes;
   final int comments;
 
-  const ForumPost({
+  const ForumPost({super.key,
     required this.title,
     required this.author,
     required this.date,
@@ -20,39 +20,39 @@ class ForumPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
               maxLines: 2, // Adjusted to fit the screen
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               '$author on $date',
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               content,
               maxLines: 5, // Adjusted to fit the screen
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Row(
               children: [
-                Icon(Icons.thumb_up),
+                const Icon(Icons.thumb_up),
                 Text('$likes'),
-                SizedBox(width: 8.0),
-                Icon(Icons.comment),
+                const SizedBox(width: 8.0),
+                const Icon(Icons.comment),
                 Text('$comments'),
               ],
             ),

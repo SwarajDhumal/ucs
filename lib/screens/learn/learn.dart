@@ -1,9 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {
+  const VideoPage({super.key});
+
   @override
   State<VideoPage> createState() => _VideoPageState();
 }
@@ -21,7 +23,7 @@ class _VideoPageState extends State<VideoPage> {
 
   Future<void> fetchCategories() async {
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('videos').get();
+    await FirebaseFirestore.instance.collection('videos').get();
     Set<String> categorySet = Set();
     querySnapshot.docs.forEach((doc) {
       final category = doc['category'] as String?;
@@ -41,29 +43,49 @@ class _VideoPageState extends State<VideoPage> {
         title: Text(selectedCategory ?? 'Video List'),
       ),
       body: selectedCategory != null
-          ? buildVideoList(selectedCategory!)
-          : buildCategoryList(),
+          ? VideoList(category: selectedCategory!)
+          : CategoryList(categories: categories, onSelectCategory: selectCategory),
     );
   }
 
-  Widget buildCategoryList() {
+  void selectCategory(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
+}
+
+class CategoryList extends StatelessWidget {
+  final List<String> categories;
+  final Function(String) onSelectCategory;
+
+  const CategoryList({super.key,
+    required this.categories,
+    required this.onSelectCategory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: categories.length,
       itemBuilder: (context, index) {
         final category = categories[index];
         return ListTile(
           title: Text(category),
-          onTap: () {
-            setState(() {
-              selectedCategory = category;
-            });
-          },
+          onTap: () => onSelectCategory(category),
         );
       },
     );
   }
+}
 
-  Widget buildVideoList(String category) {
+class VideoList extends StatelessWidget {
+  final String category;
+
+  const VideoList({super.key, required this.category});
+
+  @override
+  Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('videos')
@@ -71,7 +93,7 @@ class _VideoPageState extends State<VideoPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
@@ -81,20 +103,33 @@ class _VideoPageState extends State<VideoPage> {
           itemCount: videos.length,
           itemBuilder: (context, index) {
             var video = videos[index].data() as Map<String, dynamic>;
-            return ListTile(
-              title: Text(video['title'] ?? 'Untitled'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VideoPlayerPage(
-                      videoUrl: video['videoUrl'] as String? ?? '',
-                    ),
-                  ),
-                );
-              },
+            return VideoListItem(
+              videoTitle: video['title'] ?? 'Untitled',
+              videoUrl: video['videoUrl'] as String? ?? '',
             );
           },
+        );
+      },
+    );
+  }
+}
+
+class VideoListItem extends StatelessWidget {
+  final String videoTitle;
+  final String videoUrl;
+
+  const VideoListItem({super.key, required this.videoTitle, required this.videoUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(videoTitle),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VideoPlayerPage(videoUrl: videoUrl),
+          ),
         );
       },
     );
@@ -104,7 +139,7 @@ class _VideoPageState extends State<VideoPage> {
 class VideoPlayerPage extends StatelessWidget {
   final String videoUrl;
 
-  const VideoPlayerPage({Key? key, required this.videoUrl}) : super(key: key);
+  const VideoPlayerPage({super.key, required this.videoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +147,9 @@ class VideoPlayerPage extends StatelessWidget {
     if (videoId == null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Video Player'),
+          title: const Text('Video Player'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('Invalid YouTube URL'),
         ),
       );
@@ -130,7 +165,7 @@ class VideoPlayerPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video Player'),
+        title: const Text('Video Player'),
       ),
       body: Center(
         child: YoutubePlayer(

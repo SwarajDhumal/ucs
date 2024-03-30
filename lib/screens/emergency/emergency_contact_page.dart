@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'emergency_contact_card.dart';
 
 class EmergencyContactPage extends StatelessWidget {
+  const EmergencyContactPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Emergency Contact'),
+          title: const Text('Emergency Contact'),
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

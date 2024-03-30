@@ -2,18 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guardiancare/screens/account/account.dart';
-import 'package:guardiancare/screens/emergency/emergencyContactPage.dart';
+import 'package:guardiancare/screens/emergency/emergency_contact_page.dart';
 import 'package:guardiancare/screens/learn/learn.dart';
-import 'package:guardiancare/screens/quizpage/quizPage.dart';
-import 'package:guardiancare/screens/search%20page/searchPage.dart';
+import 'package:guardiancare/screens/quizpage/quiz_page.dart';
+import 'package:guardiancare/screens/search%20page/search_page.dart';
 import 'package:http/http.dart' as http;
-import 'package:guardiancare/screens/utils/CircularButton.dart';
+import 'package:guardiancare/screens/utils/circular_button.dart';
 import 'package:guardiancare/screens/utils/shimmer_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -208,20 +208,20 @@ class _HomePageState extends State<HomePage> {
             if (label == 'Quiz') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => QuizPage()),
+                MaterialPageRoute(builder: (context) => const QuizPage()),
               );
             } else if (label == 'Emergency') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EmergencyContactPage(),
+                  builder: (context) => const EmergencyContactPage(),
                 ),
               );
             } else if (label == 'Search') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchPage(),
+                  builder: (context) => const SearchPage(),
                 ),
               );
             } else if (label == 'Profile') {
@@ -235,7 +235,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VideoPage(),
+                  builder: (context) => const VideoPage(),
                 ),
               );
             } else {
@@ -268,7 +268,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.grey[300],
         width: double.infinity,
         height: MediaQuery.of(context).size.height / 2,
-        child: Center(child: CircularProgressIndicator()),
+        child: const Center(child: CircularProgressIndicator()),
       ),
     );
   }
@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
 
 class WebViewPage extends StatelessWidget {
   final String url;
-  const WebViewPage({Key? key, required this.url}) : super(key: key);
+  const WebViewPage({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {

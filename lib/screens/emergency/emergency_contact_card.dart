@@ -6,11 +6,11 @@ class EmergencyContactCard extends StatelessWidget {
   final List<String> contacts;
 
   const EmergencyContactCard({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.contacts,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,17 @@ class EmergencyContactCard extends StatelessWidget {
                   size: 48,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: contacts
@@ -46,7 +46,7 @@ class EmergencyContactCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Text(
                   contact,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),

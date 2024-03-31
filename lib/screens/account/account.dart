@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guardiancare/screens/emergency/emergency_contact_page.dart';
-import 'package:guardiancare/screens/loginpage/login_page.dart';
+import 'package:guardiancare/screens/login/login_page.dart';
 import 'package:guardiancare/screens/Report/report_page.dart';
 
 class Account extends StatelessWidget {

@@ -11,6 +11,7 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
+  // ignore: unused_field
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late List<String> categories;
   String? selectedCategory;

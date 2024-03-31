@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 
-final FirebaseOptions iosFirebaseOptions = FirebaseOptions(
+const FirebaseOptions iosFirebaseOptions = FirebaseOptions(
   apiKey: 'AIzaSyDwCbSP-Qw1bRg5BvVco5x0VqxoBMAtLgs',
   appId: '1:331315801686:ios:3e6128afd380d53a7595f7',
   messagingSenderId: '331315801686',

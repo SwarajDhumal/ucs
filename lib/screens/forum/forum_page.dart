@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'forum_post.dart';
+import 'package:guardiancare/models/forum_post.dart';
 import 'law_descripiton_page.dart';
 
 class ForumPage extends StatelessWidget {

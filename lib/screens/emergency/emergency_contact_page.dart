@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'emergency_contact_card.dart';
+import '../../models/emergency_contact_card.dart';
 
 class EmergencyContactPage extends StatelessWidget {
   const EmergencyContactPage({super.key});

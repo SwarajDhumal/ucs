@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:guardiancare/firebase_options.dart';
-import 'package:guardiancare/screens/loginpage/login_page.dart';
+import 'package:guardiancare/firebase_options/firebase_options.dart';
+import 'package:guardiancare/screens/login/login_page.dart';
 import 'package:guardiancare/screens/pages/pages.dart';
 
 void main() async {

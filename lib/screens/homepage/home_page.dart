@@ -5,9 +5,11 @@ import 'package:guardiancare/screens/account/account.dart';
 import 'package:guardiancare/screens/emergency/emergency_contact_page.dart';
 import 'package:guardiancare/screens/learn/learn.dart';
 import 'package:guardiancare/screens/quizpage/quiz_page.dart';
-import 'package:guardiancare/screens/search%20page/search_page.dart';
+import 'package:guardiancare/screens/search/search_page.dart';
 import 'package:http/http.dart' as http;
+// ignore: unused_import
 import 'package:guardiancare/screens/utils/circular_button.dart';
+// ignore: unused_import
 import 'package:guardiancare/screens/utils/shimmer_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';

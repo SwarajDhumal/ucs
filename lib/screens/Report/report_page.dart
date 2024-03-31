@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guardiancare/screens/Report/incident_type_dropdown.dart';
 import 'package:guardiancare/screens/Report/text_input_field.dart';
 import 'package:guardiancare/screens/Report/submit_button.dart';
-import 'package:guardiancare/screens/Report/email_utils.dart';
+import 'package:guardiancare/screens/utils/email_utils.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});

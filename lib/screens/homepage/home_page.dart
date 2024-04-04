@@ -7,24 +7,21 @@ import 'package:guardiancare/screens/learn/learn.dart';
 import 'package:guardiancare/screens/quizpage/quiz_page.dart';
 import 'package:guardiancare/screens/search/search_page.dart';
 import 'package:http/http.dart' as http;
-// ignore: unused_import
-import 'package:guardiancare/screens/utils/circular_button.dart';
-// ignore: unused_import
-import 'package:guardiancare/screens/utils/shimmer_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> videoData = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   User? _user;
+
   @override
   void initState() {
     super.initState();
@@ -44,25 +41,16 @@ class _HomePageState extends State<HomePage> {
     for (final videoUrl in videoUrls) {
       final response = await http.get(Uri.parse(videoUrl));
       if (response.statusCode == 200) {
-        final videoTitle = _extractVideoTitle(response.body);
         final thumbnailUrl = await _getThumbnailUrl(videoUrl);
         videoData.add({
           'url': videoUrl,
-          'title': videoTitle,
-          'thumbnailUrl': thumbnailUrl
+          'thumbnailUrl': thumbnailUrl,
         });
       } else {
-        print('Failed to fetch video title for $videoUrl');
+        print('Failed to fetch video thumbnail for $videoUrl');
       }
     }
     setState(() {});
-  }
-
-  String _extractVideoTitle(String html) {
-    final regExp =
-    RegExp(r'<title>(?:\S+\s*\|)?\s*(?<title>[\S\s]+?) - YouTube</title>');
-    final match = regExp.firstMatch(html);
-    return match?.namedGroup('title') ?? '';
   }
 
   @override
@@ -78,9 +66,8 @@ class _HomePageState extends State<HomePage> {
               child: CarouselSlider(
                 options: CarouselOptions(
                   height: MediaQuery.of(context).size.height / 2,
-                  aspectRatio: 5 / 4,
-                  viewportFraction:
-                  0.8, // Adjust the viewportFraction for spacing
+                  aspectRatio: 16 / 9, // Adjust aspect ratio for full width image
+                  viewportFraction: 1, // Full width image
                   initialPage: 0,
                   enableInfiniteScroll: true,
                   autoPlay: true,
@@ -91,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                 ),
                 items: videoData.isEmpty
-                    ? _buildShimmerItems() // Use shimmer items if video data is empty
+                    ? _buildShimmerItems()
                     : videoData.map((video) {
                   return Builder(
                     builder: (BuildContext context) {
@@ -105,46 +92,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           );
                         },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: Stack(
-                            children: [
-                              Image.network(
-                                video['thumbnailUrl'],
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.black.withOpacity(0.5),
-                                      ],
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      video['title'],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9, // Aspect ratio for image
+                          child: Image.network(
+                            video['thumbnailUrl'],
+                            fit: BoxFit.cover,
                           ),
                         ),
                       );
@@ -157,7 +109,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Card(
-                elevation: 8, // Increased elevation
+                elevation: 8,
                 color: Colors.blue[100],
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -193,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 40), // Increased padding below carousel
+            const SizedBox(height: 40),
             const SizedBox(height: 20),
           ],
         ),
@@ -290,7 +242,7 @@ class _HomePageState extends State<HomePage> {
 
 class WebViewPage extends StatelessWidget {
   final String url;
-  const WebViewPage({super.key, required this.url});
+  const WebViewPage({Key? key, required this.url}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
